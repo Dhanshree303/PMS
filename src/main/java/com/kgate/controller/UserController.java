@@ -287,16 +287,7 @@ public class UserController {
 		mav.addObject("project", project);
 		return mav;
 	}
-	
-	@GetMapping("/addProject2")
-	public ModelAndView addProject2(@SessionAttribute("user") User u2) {
-		ModelAndView mav = new ModelAndView("addProject");
-		Project project = new Project();
-		List<Project> projectList = pr.projectList(u2.getId());
-		mav.addObject("projectList", projectList);
-		mav.addObject("project", project);
-		return mav;
-	}
+ 
 
 	@PostMapping("/saveProject")
 	public ModelAndView saveProject(@SessionAttribute("user") User u2, @ModelAttribute("project") Project p) {
@@ -311,12 +302,7 @@ public class UserController {
 		mav.addObject("projectList", projectList);
 		return mav;
 	}
+}
 
-	/*
-	 * @GetMapping("/logout") public ModelAndView logout(HttpSession sess){
-	 * ModelAndView mav=new ModelAndView(); sess.invalidate(); return mav; }
-	 */
-
-	}
 
 
