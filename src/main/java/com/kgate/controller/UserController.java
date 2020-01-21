@@ -328,6 +328,10 @@ public class UserController {
 		List<Project> projectList = pr.projectList(u2.getId());
 		mav.addObject("projectList", projectList);
 		System.out.println(projectList);
+		System.out.println(projectList);
+		for (int i = 0; i < 10; i++) {
+			
+		}
 		return mav;
 	}
 
