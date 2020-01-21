@@ -316,23 +316,7 @@ public class UserController {
 	 * @GetMapping("/logout") public ModelAndView logout(HttpSession sess){
 	 * ModelAndView mav=new ModelAndView(); sess.invalidate(); return mav; }
 	 */
-	@PostMapping("/saveProject2")
-	public ModelAndView saveProject2(@SessionAttribute("user") User u2, @ModelAttribute("project") Project p) {
-		ModelAndView mav = new ModelAndView("addProject");
-		p.setManagerid(u2.getId());
-		System.out.println("ManId" + u2.getId());
-		pr.save(p);
 
-		Project proj = new Project();
-		mav.addObject("project", proj);
-		List<Project> projectList = pr.projectList(u2.getId());
-		mav.addObject("projectList", projectList);
-		System.out.println(projectList);
-		System.out.println(projectList);
-		for (int i = 0; i < 10; i++) {
-			
-		}
-		return mav;
 	}
 
-}
+
