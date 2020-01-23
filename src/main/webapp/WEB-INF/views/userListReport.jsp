@@ -11,37 +11,28 @@
 <title>Report</title>
 </head>
 <body>
-
-	<%-- <table border="1">
-		<thead>
-			<tr>
-				<td>id</td>
-				<td>name</td>
-				<td>usertype</td>
-				<td>email</td>
-				<td>password</td>
-			</tr>
-		</thead>
+	
+	<table border="1" align="center">
+		<tr>
+			<th>
+				<a href="/SpringMVCRevised/addmanager">Add New Manager</a>
+			</th>
+			
+			<th>
+				<a href="/SpringMVCRevised/viewEmp">View Employee List</a>
+			</th>
+			
+			<th>
+				<a href="/SpringMVCRevised/report">Download Employee Details</a>
+			</th>
+		</tr>
 		
-		<tbody>
-			<c:forEach items="${userList}" var="user">
-				<tr>
-					
-					<td>${user.id}</td>
-					<td>${user.name}</td>
-					<td>${user.usertype}</td>
-					<td>${user.email}</td>
-					<td>${user.password}</td>
-				</tr>
-			</c:forEach>
-		</tbody>	
-	</table> --%>
-	
-	<%-- <spring:url value="/report/?type=xls" var="xlsURL"/>
-	<spring:url value="/report/?type=pdf" var="pdfURL"/> --%>
-	
-	<a href="/SpringMVCRevised/downloadExcel">Download Excel</a>
-	<a href="/SpringMVCRevised/downloadPdf">Download PDF</a>
-
+	</table>
+	<br>
+	<div align="center">
+	<a href="/SpringMVCRevised/downloadExcel"><b>Download Report in Excel</b></a>
+	&nbsp;&nbsp;
+	<a href="/SpringMVCRevised/downloadPdf"><b>Download Report in PDF</b></a>
+	</div>
 </body>
 </html>

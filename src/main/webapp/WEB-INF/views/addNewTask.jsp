@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isELIgnored="false"%>
    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    
     
 <!DOCTYPE html>
@@ -42,31 +42,18 @@ input[type=text],[type=Date] {
 
 <body>
 
-<table border="1" align="center">
-		  <col width="150">
-		  <col width="150">
-		  <col width="150">
-		  
-		
-			<tr>
-				<th>
-					<a href="/SpringMVCRevised/addemployee">Add New Employee</a>
-				</th>
-				
-				<!-- <th>
-					<a href="/SpringMVCRevised/addNewTask">Add New Task</a>
-				</th> -->
-				
-				<th>
-					<a href="/SpringMVCRevised">Logout</a>
-				</th>
-				
-				<!-- <th>
-					<a href="/SpringMVCRevised/taskTable">Task Table</a>
-				</th> -->
-			</tr>
-		
-		</table>
+	<table border="1" align="center">
+		<col width="150">
+		<col width="150">
+		<col width="150">
+		<tr>
+			<th><a href="/SpringMVCRevised/addemployee">Add New Employee</a>
+			</th>
+
+			<th><a href="/SpringMVCRevised/addProject">Add Project</a></th>
+		</tr>
+
+	</table>
 
 	<h3 align="center"><b>Add New Task</b></h3>
 	<form:form action="saveTask" method="POST"  modelAttribute="task">
@@ -129,7 +116,7 @@ input[type=text],[type=Date] {
 				<td>${task.taskname}</td>
 				<td>${task.startdate}</td>
 				<td>${task.enddate}</td>
-				<td><a href="assignTask?taskid=${task.id}?projectid=${task.projectid}">Not Assigned</a></td>
+				<td><a href="assignTask?taskid=${task.id}">Not Assigned</a></td>
 			</tr>
 		</c:forEach>
 	</table>

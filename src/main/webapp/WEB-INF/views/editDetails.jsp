@@ -45,11 +45,24 @@ label {
  </head> 
 <body>
 
-<!-- <a href="/SpringMVCRevised"><b>Login</b></a><br> -->
+	<table border="1" align="center">
+		<tr>
+			<th><a href="/SpringMVCRevised/addmanager">Add New Manager</a></th>
 
-	<h3 align="center"><b>Register New User</b></h3>
-	<form:form action="saveDetails" method="GET" modelAttribute="user">
+			<th><a href="/SpringMVCRevised/viewEmp">View Employee List</a></th>
+		</tr>
+
+	</table>
+	
+	<h3 align="center"><b>Edit Employee Details</b></h3>
+	<form:form action="editEmp" method="POST" modelAttribute="user">
 		<table align="center">
+		
+		<tr>
+		<td><label>Id</label></td>
+		<td><form:input path="id"/><br></td>
+		</tr>
+		
 		<tr>
 		<td><label>Name</label></td>
 		<td><form:input path="name"/><br></td>

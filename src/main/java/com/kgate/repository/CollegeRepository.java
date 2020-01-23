@@ -15,15 +15,6 @@ public interface CollegeRepository extends JpaRepository<User, Long>
 	
 	@Query("select u from User u where u.email=:email and u.password=:password")
 	User authenticateUser(@Param("email") String email, @Param("password") String password);
-	
-	
-	/*
-	 * @Query("select u from User u where u.id=:id and u.name=:name and u.usertype=:usertype and u.email=:email and u.password=:password "
-	 * ) List<User2> downloadUserData(@Param("id") long id, @Param("name") String
-	 * name, @Param("usertype") String usertype,
-	 * 
-	 * @Param("email") String email, @Param("password") String password);
-	 */
 	 
 	@Query("select u from User u where u.usertype!='Admin'")
 	List<User> userList(); 
@@ -32,6 +23,7 @@ public interface CollegeRepository extends JpaRepository<User, Long>
 //	  List<User> findAllByManagerId(long managerId);
 	
 	 @Query("select u from User u where u.managerId=:managerId")
-	 List<User> empList(@Param("managerId") long managerId);
+	 List<User> empList(@Param("managerId") long managerId);	
+	
 	
 }

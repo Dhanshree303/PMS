@@ -40,6 +40,19 @@ input[type=text],[type=Date] {
 </head>
 <body>
 
+	<table border="1" align="center">
+		<col width="150">
+		<col width="150">
+		<col width="150">
+		<tr>
+			<th><a href="/SpringMVCRevised/addemployee">Add New Employee</a>
+			</th>
+
+			<th><a href="/SpringMVCRevised/addProject">Add Project</a></th>
+		</tr>
+
+	</table>
+	
 	<h3 align="center"><b>Assign Task</b></h3>
 	<form:form action="assigned" method="POST"  modelAttribute="assignProject">
 		<table align="center">

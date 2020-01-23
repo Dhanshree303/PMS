@@ -7,20 +7,25 @@
 <title>View Manager Details</title>
 </head>
 <body>
-	<table border="1">
+	
+	<table border="1" align="center">
 		<tr>
-			<th><a href="/SpringMVCRevised/empRegister">Register User</a></th>
-
-			<th><a href="/SpringMVCRevised">Login</a></th>
-
-			<th><a href="/SpringMVCRevised/addmanager">Add New Manager</a></th>
-
-			<th><a href="/SpringMVCRevised/viewEmp">View Employee</a></th>
+			<th>
+				<a href="/SpringMVCRevised/addmanager">Add New Manager</a>
+			</th>
+			
+			<th>
+				<a href="/SpringMVCRevised/viewEmp">View Employee List</a>
+			</th>
+			
+			<th>
+				<a href="/SpringMVCRevised/report">Download Employee Details</a>
+			</th>
 		</tr>
-
-	</table>
-
-	<h3><b>Registration Successful</b></h3>
+		
+		</table>
+	
+	<h3><b>Manger Registration Successful</b></h3>
 	<h4>Manager Details</h4>
 	<table border="1">
 		<tr>

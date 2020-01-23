@@ -12,22 +12,15 @@
         table, th, td { 
             border: 1px solid black; 
             border-collapse: collapse; 
+            
         } 
 </style>
     
 </head>
 <body>
 
-	<table border="1">
+	<table border="1" align="center">
 		<tr>
-			<!-- <th>
-				<a href="/SpringMVCRevised/empRegister">Register User</a>
-			</th> -->
-		
-			<th>
-				<a href="/SpringMVCRevised">Login</a>
-			</th>
-		
 			<th>
 				<a href="/SpringMVCRevised/addmanager">Add New Manager</a>
 			</th>
@@ -35,14 +28,18 @@
 			<th>
 				<a href="/SpringMVCRevised/viewEmp">View Employee List</a>
 			</th>
+			
+			<th>
+				<a href="/SpringMVCRevised/report">Download Employee Details</a>
+			</th>
 		</tr>
 		
 		</table>
 
 <br>
 
-	<h3><b>Employee List</b></h3>
-	<table>
+	<h3 align="center"><b>Employee List</b></h3>
+	<table align="center">
 		<tr>
 			<th>ID</th>
 			<th>Name</th>

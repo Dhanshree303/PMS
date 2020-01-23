@@ -8,22 +8,18 @@
 </head>
 <body>
 
-<table border="1">
-		  <col width="150">
-		  <col width="150">
-		  <col width="150">
-		  
-			<tr>
-				<th>
-					<a href="/SpringMVCRevised/empRegister">Register User</a>
-				</th>
-			
-				<th>
-					<a href="/SpringMVCRevised">Login</a>
-				</th>
-			</tr>
-		
-		</table>
+	<table border="1" align="center">
+		<col width="150">
+		<col width="150">
+		<col width="150">
+
+		<tr>
+			<th><a href="">Edit Profile</a></th>
+
+			<th><a href="">View Assigned Task</a></th>
+		</tr>
+
+	</table>
 
 </body>
 </html>

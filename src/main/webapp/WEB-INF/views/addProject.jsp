@@ -43,7 +43,21 @@ input[type=text],[type=Date] {
 </head>
 <body>
 
-<h3 align="center"><b>Add New Project</b></h3>
+	<table border="1" align="center">
+		<col width="150">
+		<col width="150">
+		<col width="150">
+		<tr>
+			<th><a href="/SpringMVCRevised/addemployee">Add New Employee</a>
+			</th>
+
+			<th><a href="/SpringMVCRevised/addProject">Add Project</a></th>
+		</tr>
+
+	</table>
+
+
+	<h3 align="center"><b>Add New Project</b></h3>
 	<form:form action="saveProject" method="POST"  modelAttribute="project">
 		<table align="center">
 			

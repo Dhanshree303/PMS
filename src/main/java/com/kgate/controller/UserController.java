@@ -48,32 +48,28 @@ public class UserController {
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
 
-	@GetMapping("/empRegister")
-	public ModelAndView viewClg() {
-		ModelAndView mav = new ModelAndView("registration");
-		User user = new User();
+	/*
+	 * @GetMapping("/empRegister") public ModelAndView viewClg() { ModelAndView mav
+	 * = new ModelAndView("registration"); User user = new User();
+	 * 
+	 * 
+	 * List<String> userType = new ArrayList<String>(); userType.add("Admin");
+	 * userType.add("Manager"); userType.add("Employee"); mav.addObject("userType",
+	 * userType);
+	 * 
+	 * mav.addObject("user", user); return mav; }
+	 */
 
-		/*
-		 * List<String> userType = new ArrayList<String>(); userType.add("Admin");
-		 * userType.add("Manager"); userType.add("Employee"); mav.addObject("userType",
-		 * userType);
-		 */
-		mav.addObject("user", user);
-		return mav;
-	}
-
-	@GetMapping("/saveDetails")
-	public ModelAndView viewDetails(@ModelAttribute("user") User u) {
-		ModelAndView mav = new ModelAndView("showDetails");
-		er.save(u);
-		mav.addObject("name", u.getName());
-		/*
-		 * mav.addObject("usertype", u.getUsertype());
-		 */ mav.addObject("email", u.getEmail());
-		mav.addObject("password", u.getPassword());
-		System.out.println(u.getName() + ":" + u.getUsertype() + ":" + u.getEmail() + ":" + u.getPassword());
-		return mav;
-	}
+	/*
+	 * @GetMapping("/saveDetails") public ModelAndView
+	 * viewDetails(@ModelAttribute("user") User u) { ModelAndView mav = new
+	 * ModelAndView("showDetails"); er.save(u); mav.addObject("name", u.getName());
+	 * 
+	 * mav.addObject("usertype", u.getUsertype()); mav.addObject("email",
+	 * u.getEmail()); mav.addObject("password", u.getPassword());
+	 * System.out.println(u.getName() + ":" + u.getUsertype() + ":" + u.getEmail() +
+	 * ":" + u.getPassword()); return mav; }
+	 */
 
 	@GetMapping("/")
 	public ModelAndView viewLogin() {
@@ -122,7 +118,7 @@ public class UserController {
 	 */
 
 	@GetMapping("/addemployee")
-	public ModelAndView addEmp() {
+	public ModelAndView addEmp(@SessionAttribute("user") User u1) {
 		ModelAndView mav = new ModelAndView("addNewEmployee");
 		User user = new User();
 
@@ -132,21 +128,31 @@ public class UserController {
 		userType.add("Employee");
 		mav.addObject("userType", userType);
 
+		List<User> emplist = er.empList(u1.getId());
+		mav.addObject("emplist", emplist);
+
 		mav.addObject("user1", user);
 		return mav;
 	}
 
 	@PostMapping("/registerEmployee")
 	public ModelAndView addEmployee(@SessionAttribute("user") User u1, @ModelAttribute("user1") User u) {
-		ModelAndView mav = new ModelAndView("showEmployeeDetails");
-		System.out.println(u.getName() + ":" + u.getEmail() + ":" + u.getPassword());
+		ModelAndView mav = new ModelAndView("addNewEmployee");
+//		System.out.println(u.getName() + ":" + u.getEmail() + ":" + u.getPassword());
 
 		u.setUsertype("Employee");
 		u.setManagerId(u1.getId());
 		er.save(u);
-		mav.addObject("name", u.getName());
-		mav.addObject("email", u.getEmail());
-		mav.addObject("password", u.getPassword());
+
+//		mav.addObject("name", u.getName());
+//		mav.addObject("email", u.getEmail());
+//		mav.addObject("password", u.getPassword());
+		User user = new User();
+		mav.addObject("user", user);
+
+		List<User> emplist = er.empList(u1.getId());
+		mav.addObject("emplist", emplist);
+
 		return mav;
 	}
 
@@ -162,10 +168,7 @@ public class UserController {
 	@PostMapping("/registerManager")
 	public ModelAndView addManager(@ModelAttribute("user") User u) {
 		ModelAndView mav = new ModelAndView("showDetails");
-		System.out.println(u.getName() + ":" + u.getEmail() + ":" + u.getPassword());
-
 		u.setUsertype("Manager");
-
 		er.save(u);
 		mav.addObject("name", u.getName());
 		mav.addObject("email", u.getEmail());
@@ -192,16 +195,16 @@ public class UserController {
 		return mav;
 	}
 
-	@GetMapping("/editEmp")
+	@PostMapping("/editEmp")
 	public ModelAndView edit(@RequestParam("id") long id) {
-		ModelAndView mav = new ModelAndView("registration");
+		ModelAndView mav = new ModelAndView("editDetails");
 		User u = er.getOne(id);
 
-		List<String> userType = new ArrayList<String>();
-		userType.add("Admin");
-		userType.add("Manager");
-		userType.add("Employee");
-		mav.addObject("userType", userType);
+//		List<String> userType = new ArrayList<String>();
+//		userType.add("Admin");
+//		userType.add("Manager");
+//		userType.add("Employee");
+//		mav.addObject("userType", userType);
 
 		System.out.println("::::  " + u);
 		mav.addObject("user", u);
@@ -209,8 +212,8 @@ public class UserController {
 	}
 
 	@GetMapping("/addNewTask")
-	public ModelAndView addTask(@SessionAttribute("user") User u2, @ModelAttribute("task") Task t, @RequestParam("projectid") long projectid) 
-	{
+	public ModelAndView addTask(@SessionAttribute("user") User u2, @ModelAttribute("task") Task t,
+			@RequestParam("projectid") long projectid) {
 		ModelAndView mav = new ModelAndView("addNewTask");
 		Task task = new Task();
 		task.setProjectid(projectid);
@@ -241,24 +244,19 @@ public class UserController {
 	}
 
 	@GetMapping("/assignTask")
-	public ModelAndView assignTask(@SessionAttribute("user") User u, @RequestParam("taskid") long taskid) 
-	{
+	public ModelAndView assignTask(@SessionAttribute("user") User u, @RequestParam("taskid") long taskid) {
 		ModelAndView mav = new ModelAndView("assignTask");
-		Task task=new Task();
-		task = tr.findById(taskid);
-		//task.setProjectid(projectid);
-		//task.setMangerid(u.getId());
-		
-		List<User> listUser=er.empList(u.getId());
-		System.out.println("-----"+listUser.size());
-		
+		Task task = tr.findById(taskid);
+		// task.setProjectid(projectid);
+		List<User> listUser = er.empList(u.getId());
+		System.out.println("-----" + listUser.size());
+
 		List<String> empname = new ArrayList<String>();
-		
-		for(User u1:listUser)
-		{
-			empname.add(u1.getEmail());	
+
+		for (User u1 : listUser) {
+			empname.add(u1.getEmail());
 		}
-		System.out.println("ManagerId"+u.getId());
+		System.out.println("ManagerId" + u.getId());
 //		empname.add(er.findAllByManagerId(u.getManagerId()));
 		mav.addObject("empname", empname);
 		mav.addObject("assignProject", task);
@@ -269,8 +267,10 @@ public class UserController {
 	public ModelAndView assigned(@SessionAttribute("user") User u2, @ModelAttribute("assignProject") Task t) {
 		ModelAndView mav = new ModelAndView("addNewTask");
 		t.setTaskStatus("Assigned");
+//		System.out.println("Manager Id"+u2.getId());
+		t.setMangerid(u2.getId());
 		tr.save(t);
-		
+
 		Task task = new Task();
 		mav.addObject("task", task);
 		List<Task> taskList = tr.findAllByMangeridAndProjectid(u2.getId(), t.getProjectid());
@@ -280,16 +280,6 @@ public class UserController {
 
 	@GetMapping("/addProject")
 	public ModelAndView addProject(@SessionAttribute("user") User u2) {
-		ModelAndView mav = new ModelAndView("addProject");
-		Project project = new Project();
-		List<Project> projectList = pr.projectList(u2.getId());
-		mav.addObject("projectList", projectList);
-		mav.addObject("project", project);
-		return mav;
-	}
-	
-	@GetMapping("/addProject2")
-	public ModelAndView addProject2(@SessionAttribute("user") User u2) {
 		ModelAndView mav = new ModelAndView("addProject");
 		Project project = new Project();
 		List<Project> projectList = pr.projectList(u2.getId());
@@ -316,19 +306,5 @@ public class UserController {
 	 * @GetMapping("/logout") public ModelAndView logout(HttpSession sess){
 	 * ModelAndView mav=new ModelAndView(); sess.invalidate(); return mav; }
 	 */
-	@PostMapping("/saveProject2")
-	public ModelAndView saveProject2(@SessionAttribute("user") User u2, @ModelAttribute("project") Project p) {
-		ModelAndView mav = new ModelAndView("addProject");
-		p.setManagerid(u2.getId());
-		System.out.println("ManId" + u2.getId());
-		pr.save(p);
-
-		Project proj = new Project();
-		mav.addObject("project", proj);
-		List<Project> projectList = pr.projectList(u2.getId());
-		mav.addObject("projectList", projectList);
-		System.out.println(projectList);
-		return mav;
-	}
 
 }

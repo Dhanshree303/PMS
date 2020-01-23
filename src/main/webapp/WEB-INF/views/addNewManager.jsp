@@ -42,14 +42,6 @@ input[type=text],input[type=password] {
 
 	<table border="1" align="center">
 		<tr>
-			<!-- <th>
-				<a href="/SpringMVCRevised/empRegister">Register User</a>
-			</th> -->
-		
-			<th>
-				<a href="/SpringMVCRevised">Login</a>
-			</th>
-		
 			<th>
 				<a href="/SpringMVCRevised/addmanager">Add New Manager</a>
 			</th>
@@ -57,9 +49,14 @@ input[type=text],input[type=password] {
 			<th>
 				<a href="/SpringMVCRevised/viewEmp">View Employee List</a>
 			</th>
+			
+			<th>
+				<a href="/SpringMVCRevised/report">Download Employee Details</a>
+			</th>
 		</tr>
 		
 		</table>
+
 
 	<h3 align="center"><b>Add New Manager</b></h3>
 	<form:form action="registerManager" method="POST"  modelAttribute="user">
