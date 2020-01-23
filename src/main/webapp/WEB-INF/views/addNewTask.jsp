@@ -129,7 +129,7 @@ input[type=text],[type=Date] {
 				<td>${task.taskname}</td>
 				<td>${task.startdate}</td>
 				<td>${task.enddate}</td>
-				<td><a href="assignTask?taskid=${task.id}?projectid=${task.projectid}">Not Assigned</a></td>
+				<td><a href="assignTask?taskid=${task.id}&?projectid=${task.projectid}">Not Assigned</a></td>
 			</tr>
 		</c:forEach>
 	</table>

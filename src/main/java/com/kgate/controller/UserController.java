@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -48,6 +50,8 @@ public class UserController {
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
 
+	
+	
 	@GetMapping("/empRegister")
 	public ModelAndView viewClg() {
 		ModelAndView mav = new ModelAndView("registration");
@@ -176,9 +180,11 @@ public class UserController {
 	@GetMapping("/viewEmp")
 	public ModelAndView view() {
 		ModelAndView mav = new ModelAndView("viewEmp");
-		List<User> empList = er.findAll();
-		System.out.println(empList);
-		mav.addObject("empList", empList);
+//		List<User> empList = er.findAll();
+//		System.out.println(empList);
+		List<User> list=er.findAllByUsertype("Employee", new PageRequest(0, 4, Direction.ASC, "id"));
+	    
+		mav.addObject("empList", list);
 		return mav;
 	}
 
@@ -209,8 +215,8 @@ public class UserController {
 	}
 
 	@GetMapping("/addNewTask")
-	public ModelAndView addTask(@SessionAttribute("user") User u2, @ModelAttribute("task") Task t, @RequestParam("projectid") long projectid) 
-	{
+	public ModelAndView addTask(@SessionAttribute("user") User u2, @ModelAttribute("task") Task t,
+			@RequestParam("projectid") long projectid) {
 		ModelAndView mav = new ModelAndView("addNewTask");
 		Task task = new Task();
 		task.setProjectid(projectid);
@@ -241,24 +247,22 @@ public class UserController {
 	}
 
 	@GetMapping("/assignTask")
-	public ModelAndView assignTask(@SessionAttribute("user") User u, @RequestParam("taskid") long taskid) 
-	{
+	public ModelAndView assignTask(@SessionAttribute("user") User u, @RequestParam("taskid") long taskid) {
 		ModelAndView mav = new ModelAndView("assignTask");
-		Task task=new Task();
+		Task task = new Task();
 		task = tr.findById(taskid);
-		//task.setProjectid(projectid);
-		//task.setMangerid(u.getId());
-		
-		List<User> listUser=er.empList(u.getId());
-		System.out.println("-----"+listUser.size());
-		
+		// task.setProjectid(projectid);
+		// task.setMangerid(u.getId());
+
+		List<User> listUser = er.empList(u.getId());
+		System.out.println("-----" + listUser.size());
+
 		List<String> empname = new ArrayList<String>();
-		
-		for(User u1:listUser)
-		{
-			empname.add(u1.getEmail());	
+
+		for (User u1 : listUser) {
+			empname.add(u1.getEmail());
 		}
-		System.out.println("ManagerId"+u.getId());
+		System.out.println("ManagerId" + u.getId());
 //		empname.add(er.findAllByManagerId(u.getManagerId()));
 		mav.addObject("empname", empname);
 		mav.addObject("assignProject", task);
@@ -270,7 +274,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("addNewTask");
 		t.setTaskStatus("Assigned");
 		tr.save(t);
-		
+
 		Task task = new Task();
 		mav.addObject("task", task);
 		List<Task> taskList = tr.findAllByMangeridAndProjectid(u2.getId(), t.getProjectid());
@@ -287,7 +291,6 @@ public class UserController {
 		mav.addObject("project", project);
 		return mav;
 	}
- 
 
 	@PostMapping("/saveProject")
 	public ModelAndView saveProject(@SessionAttribute("user") User u2, @ModelAttribute("project") Project p) {
@@ -302,6 +305,5 @@ public class UserController {
 		mav.addObject("projectList", projectList);
 		return mav;
 	}
- 
 
 }
