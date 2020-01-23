@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isELIgnored="false"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+     <%@taglib uri="http://www.springframework.org/tags" prefix="spring"  %>
+     <%-- <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+     --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +65,17 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<%-- <h1>Employees</h1>
+	<spring:url value="/viewEmp" var="listURL"></spring:url>
+	<display:table name="empList" requestURI="${listURL}" pagesize="4">
+	<display:column property="id" title="ID"/>
+	<display:column property="name" title="Name"/>
+	<display:column property="email" title="Email"/>
+	<display:column property="usertype" title="User Type"/>
+	<display:column property="managerId" title="Manager ID"/>
+	
+	</display:table> --%>
 
 </body>
 </html>
