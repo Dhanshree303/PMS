@@ -9,6 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -60,8 +63,10 @@ public class UserController {
 	 * mav.addObject("user", user); return mav; }
 	 */
 
+
 	/*
 	 * @GetMapping("/saveDetails") public ModelAndView
+	 * 
 	 * viewDetails(@ModelAttribute("user") User u) { ModelAndView mav = new
 	 * ModelAndView("showDetails"); er.save(u); mav.addObject("name", u.getName());
 	 * 
@@ -179,9 +184,13 @@ public class UserController {
 	@GetMapping("/viewEmp")
 	public ModelAndView view() {
 		ModelAndView mav = new ModelAndView("viewEmp");
-		List<User> empList = er.findAll();
-		System.out.println(empList);
-		mav.addObject("empList", empList);
+//		List<User> empList = er.findAll();
+//		System.out.println(empList);
+		Pageable pageable = PageRequest.of(0, 4, Direction.ASC, "name");
+
+		List<User> list = er.findAllByUsertype("Employee", pageable);
+
+		mav.addObject("empList", list);
 		return mav;
 	}
 
@@ -262,6 +271,7 @@ public class UserController {
 		mav.addObject("assignProject", task);
 		return mav;
 	}
+	
 
 	@PostMapping("/assigned")
 	public ModelAndView assigned(@SessionAttribute("user") User u2, @ModelAttribute("assignProject") Task t) {
@@ -302,9 +312,8 @@ public class UserController {
 		return mav;
 	}
 
-	/*
-	 * @GetMapping("/logout") public ModelAndView logout(HttpSession sess){
-	 * ModelAndView mav=new ModelAndView(); sess.invalidate(); return mav; }
-	 */
-
+	
+	
 }
+
+
